@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public IP Checker</title>
+    <style>
+        /* Base Styling */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 50px; 
+            display: flex; /* Use flexbox to center content */
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        
+        .container { 
+            max-width: 600px; 
+            width: 100%;
+            background-color: #ffffff; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+            text-align: center; /* Center the text inside the container */
+        }
+        
+        h1 { 
+            color: #1e3a8a; 
+            border-bottom: 2px solid #e0e7ff; 
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        #ip-display { 
+            font-size: 1.8em; /* Slightly larger for emphasis */
+            color: #b91c1c; 
+            font-weight: bold; 
+            margin-top: 20px;
+            margin-bottom: 30px; /* Added space below IP */
+        }
+        
+        /* --- Blue Refresh Button Styling --- */
+        .refresh-button {
+            background-color: #2563eb; /* Strong blue background */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        .refresh-button:hover {
+            background-color: #1d4ed8; /* Darker blue on hover */
+        }
+
+        .refresh-button:active {
+            transform: translateY(1px); /* Press effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>What is My Public IP?</h1>
+        <p>Your public IP address is:</p>
+        
+        <p id="ip-display">Loading...</p>
+
+        <button class="refresh-button" onclick="window.location.reload();">
+            🔄 Refresh IP Check
+        </button>
+        
+        <script>
+            // This function fetches your public IP address from a reliable, external API.
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('ip-display').textContent = data.ip;
+                })
+                .catch(error => {
+                    document.getElementById('ip-display').textContent = 'Error loading IP.';
+                    console.error('Error fetching IP:', error);
+                });
+        </script>
+    </div>
+</body>
+</html>
